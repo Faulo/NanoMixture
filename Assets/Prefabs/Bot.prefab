@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1922690561}
   - component: {fileID: 1922690562}
   - component: {fileID: 52656825478494775}
+  - component: {fileID: 454255932}
   m_Layer: 0
   m_Name: Brain
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  arena: {fileID: 0}
   movement: {fileID: 1656927184097964935}
   gatherer: {fileID: 4917342602359662915}
   collectReward: 1
@@ -65,17 +67,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 5
+    VectorObservationSize: 7
     NumStackedVectorObservations: 1
     VectorActionSize: 02000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 820195016a5c36e499d066c40d2c1be1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: NanoBot
   TeamId: 0
   m_UseChildSensors: 1
+--- !u!114 &454255932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922690560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 10
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &1298020324197705550
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedRigidbody: {fileID: 6264496069982718003}
-  maxForwardSpeed: 750
+  maxForwardSpeed: 1000
   maxTurnSpeed: 750
 --- !u!114 &4917342602359662915
 MonoBehaviour:

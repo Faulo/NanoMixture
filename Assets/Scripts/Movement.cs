@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Movement : MonoBehaviour {
     [SerializeField]
@@ -20,7 +19,7 @@ public class Movement : MonoBehaviour {
         set => torqueCache = Mathf.Clamp(value, -1, 1);
     }
 
-    public Vector2 position => new Vector2(transform.position.x, transform.position.z);
+    public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
     public Vector2 velocity => new Vector2(attachedRigidbody.velocity.x, attachedRigidbody.velocity.z);
     public float angularVelocity => attachedRigidbody.angularVelocity.y;
 
