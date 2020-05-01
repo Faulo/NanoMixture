@@ -1,0 +1,15 @@
+/*
+/*/
+
+!.gitattributes
+!.gitignore
+!.gitmodules
+
+!.editorconfig
+!*.md
+
+!/Assets/
+!/ProjectSettings/
+!/Packages/
+
+/Assets/ML-Agents*
