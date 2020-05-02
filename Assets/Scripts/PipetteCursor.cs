@@ -23,7 +23,7 @@ public class PipetteCursor : MonoBehaviour
             // get the hit point:
             mousePosition = ray.GetPoint(distance);
 
-            gameObject.transform.position = mousePosition;
+            transform.position = mousePosition;
         }
     }
 }
