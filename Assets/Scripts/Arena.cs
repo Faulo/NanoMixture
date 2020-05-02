@@ -16,6 +16,7 @@ public class Arena : MonoBehaviour {
     }
     public event Action<Vector3> onAnnihalateMatter;
     public event Action<Vector3> onCollectCandy;
+    public event Action onWin;
 
 
     [Header("Arena")]
@@ -48,6 +49,9 @@ public class Arena : MonoBehaviour {
     float fallReward = -1;
     [SerializeField, Range(0, 10000)]
     int maxStepsUntilReset = 0;
+
+    [Header("Key bindings")]
+    KeyCode winKey = KeyCode.F1;
 
 
     ISet<Transform> obstacles;
@@ -126,7 +130,6 @@ public class Arena : MonoBehaviour {
     }
 
     void Start() {
-
         if (isTraining) {
             obstacles = new HashSet<Transform>();
             for (int i = 0; i < wallCount; i++) {
@@ -145,10 +148,6 @@ public class Arena : MonoBehaviour {
                 var bot = Instantiate(botPrefab, transform);
                 var brain = bot.GetComponentInChildren<Brain>();
                 brain.MaxStep = maxStepsUntilReset;
-                brain.onEpisodeBegin += OnEpisodeBeginListener;
-                brain.onFall += BrainFallListener;
-                brain.onAction += BrainActionListener;
-                brain.onCandy += BrainCandyListener;
             }
             for (int i = 0; i < candyCount; i++) {
                 Instantiate(candyPrefab, transform);
@@ -159,15 +158,21 @@ public class Arena : MonoBehaviour {
             for (int i = 0; i < blackCount; i++) {
                 Instantiate(blackPrefab, transform);
             }
+        }
 
-            interactables = new HashSet<Interactable>();
+        interactables = new HashSet<Interactable>(GetComponentsInChildren<Interactable>());
 
-            foreach (var interactable in GetComponentsInChildren<Interactable>()) {
-                interactable.onAnnihalate += InteractableAnnihilationListener;
-                interactables.Add(interactable);
-            }
+        foreach (var interactable in interactables) {
+            interactable.onAnnihalate += InteractableAnnihilationListener;
+        }
 
-            bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
+        bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
+
+        foreach (var brain in bots) {
+            brain.onEpisodeBegin += OnEpisodeBeginListener;
+            brain.onFall += BrainFallListener;
+            brain.onAction += BrainActionListener;
+            brain.onCandy += BrainCandyListener;
         }
     }
 
@@ -186,23 +191,31 @@ public class Arena : MonoBehaviour {
         wall.localScale = new Vector3(rect.width, 1, rect.height);
     }
     void OnEpisodeBeginListener(Brain brain) {
-        state = ArenaState.Beginning;
+        if (isTraining) {
+            state = ArenaState.Beginning;
 
-        brain.Reset();
-        brain.localPosition = GetRandomPointInsideArena();
+            brain.Reset();
+            brain.localPosition = GetRandomPointInsideArena();
 
-        obstacles.ForAll(ResetObstacle);
-        interactables.ForAll(ResetInteractable);
+            obstacles.ForAll(ResetObstacle);
+            interactables.ForAll(ResetInteractable);
+        }
     }
     void BrainFallListener(Brain brain) {
-        brain.AddReward(fallReward);
-        brain.reset = true;
+        if (mode == ArenaMode.Training) {
+            brain.AddReward(fallReward);
+            brain.reset = true;
+        }
     }
     void BrainActionListener(Brain brain) {
-        brain.AddReward(perStepReward);
+        if (isTraining) {
+            brain.AddReward(perStepReward);
+        }
     }
     void BrainCandyListener(Brain brain, Vector3 position) {
-        brain.AddReward(candyReward);
+        if (isTraining) {
+            brain.AddReward(candyReward);
+        }
         onCollectCandy?.Invoke(position);
     }
 
@@ -213,8 +226,10 @@ public class Arena : MonoBehaviour {
         }
     }
     void InteractableAnnihilationListener(Vector3 position) {
-        if (state == ArenaState.Running) {
-            bots.ForAll(bot => bot.AddReward(annihilationReward));
+        if (isTraining) {
+            if (state == ArenaState.Running) {
+                bots.ForAll(bot => bot.AddReward(annihilationReward));
+            }
         }
         onAnnihalateMatter?.Invoke(position);
     }
@@ -226,12 +241,20 @@ public class Arena : MonoBehaviour {
     }
 
     void Update() {
-        if (state == ArenaState.Beginning) {
-            state = ArenaState.Running;
-        }
         if (isTraining) {
+            if (state == ArenaState.Beginning) {
+                state = ArenaState.Running;
+            }
             if (!hasCandies || !hasMatter || !hasAntimatter) {
                 Clear();
+            }
+        }
+        if (isPlaying) {
+            if (!hasMatter && !hasAntimatter) {
+                Win();
+            }
+            if (Input.GetKeyDown(winKey)) {
+                Win();
             }
         }
     }
@@ -242,5 +265,8 @@ public class Arena : MonoBehaviour {
             bots.ForAll(bot => bot.AddReward(clearReward));
             bots.ForAll(bot => bot.reset = true);
         }
+    }
+    void Win() {
+        onWin?.Invoke();
     }
 }

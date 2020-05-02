@@ -12,9 +12,12 @@ public class ArenaEvents : MonoBehaviour {
     PositionEvent onAnnihalateMatter = default;
     [SerializeField]
     PositionEvent onCollectCandy = default;
+    [SerializeField]
+    UnityEvent onWin = default;
 
     void Start() {
         observedArena.onAnnihalateMatter += onAnnihalateMatter.Invoke;
         observedArena.onCollectCandy += onCollectCandy.Invoke;
+        observedArena.onWin += onWin.Invoke;
     }
 }
