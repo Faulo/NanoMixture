@@ -94,21 +94,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
-      propertyPath: antimatterWallPrefab
-      value: 
-      objectReference: {fileID: 9017176611007647393, guid: e39765da513dd8840b4f3c4edae6f335,
-        type: 3}
-    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
-        type: 3}
       propertyPath: antimatterWallCount
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
-        type: 3}
-      propertyPath: matterWallPrefab
-      value: 
-      objectReference: {fileID: 9017176611007647393, guid: 2b4730500d080ca43916b4f0b85abfb5,
-        type: 3}
     - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: matterWallCount
@@ -118,6 +106,16 @@ PrefabInstance:
         type: 3}
       propertyPath: candyCount
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: whiteCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: blackCount
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1319671461981286755, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
@@ -135,6 +133,11 @@ PrefabInstance:
       value: Training_Arena_3
       objectReference: {fileID: 0}
     - target: {fileID: 3774524877911332766, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897839963409121876, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -14,6 +14,10 @@ public class Arena : MonoBehaviour {
         Beginning,
         Running
     }
+    public event Action<Vector3> onAnnihalateMatter;
+    public event Action<Vector3> onCollectCandy;
+
+
     [Header("Arena")]
     [SerializeField, Range(0, 100)]
     int width = 10;
@@ -197,8 +201,9 @@ public class Arena : MonoBehaviour {
     void BrainActionListener(Brain brain) {
         brain.AddReward(perStepReward);
     }
-    void BrainCandyListener(Brain brain) {
+    void BrainCandyListener(Brain brain, Vector3 position) {
         brain.AddReward(candyReward);
+        onCollectCandy?.Invoke(position);
     }
 
     void ResetInteractable(Interactable interactable) {
@@ -207,10 +212,11 @@ public class Arena : MonoBehaviour {
             interactable.transform.localPosition = GetRandomPointInsideArena();
         }
     }
-    void InteractableAnnihilationListener(Interactable interactable) {
+    void InteractableAnnihilationListener(Vector3 position) {
         if (state == ArenaState.Running) {
             bots.ForAll(bot => bot.AddReward(annihilationReward));
         }
+        onAnnihalateMatter?.Invoke(position);
     }
 
     void ResetObstacle(Transform obstacle) {

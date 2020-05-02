@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 466832540731593706, guid: 6af1d7781dbd0974ba800e5f5b1d9d19,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8161936908775517714, guid: 6af1d7781dbd0974ba800e5f5b1d9d19,
         type: 3}
       propertyPath: m_Name
-      value: Black
+      value: Training_Matter
       objectReference: {fileID: 0}
     - target: {fileID: 8161936908775517726, guid: 6af1d7781dbd0974ba800e5f5b1d9d19,
         type: 3}

@@ -9,7 +9,7 @@ public class Interactable : MonoBehaviour {
         Static,
     }
 
-    public event Action<Interactable> onAnnihalate;
+    public event Action<Vector3> onAnnihalate;
     public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
 
     [SerializeField]
@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour {
             if (isAntimatter && other.isMatter) {
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
-                onAnnihalate?.Invoke(this);
+                onAnnihalate?.Invoke(collision.GetContact(0).point);
             }
         }
     }
