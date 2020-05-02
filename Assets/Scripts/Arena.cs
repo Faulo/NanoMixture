@@ -46,11 +46,18 @@ public class Arena : MonoBehaviour {
     int maxStepsUntilReset = 0;
 
 
-    public ISet<Transform> obstacles;
-    public IEnumerable<Interactable> interactables => m_interactables
-            .Where(interactable => interactable.gameObject.activeSelf);
-    ISet<Interactable> m_interactables;
-    public ISet<Brain> bots;
+    ISet<Transform> obstacles;
+    ISet<Interactable> interactables;
+    bool hasCandies => interactables
+            .Where(interactable => interactable.gameObject.activeSelf)
+            .Any(interactable => interactable.isCandy);
+    bool hasAntimatter => interactables
+            .Where(interactable => interactable.gameObject.activeSelf)
+            .Any(interactable => interactable.isAntimatter);
+    bool hasMatter => interactables
+            .Where(interactable => interactable.gameObject.activeSelf)
+            .Any(interactable => interactable.isMatter);
+    ISet<Brain> bots;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -149,11 +156,11 @@ public class Arena : MonoBehaviour {
                 Instantiate(blackPrefab, transform);
             }
 
-            m_interactables = new HashSet<Interactable>();
+            interactables = new HashSet<Interactable>();
 
             foreach (var interactable in GetComponentsInChildren<Interactable>()) {
                 interactable.onAnnihalate += InteractableAnnihilationListener;
-                m_interactables.Add(interactable);
+                interactables.Add(interactable);
             }
 
             bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
@@ -181,7 +188,7 @@ public class Arena : MonoBehaviour {
         brain.localPosition = GetRandomPointInsideArena();
 
         obstacles.ForAll(ResetObstacle);
-        m_interactables.ForAll(ResetInteractable);
+        interactables.ForAll(ResetInteractable);
     }
     void BrainFallListener(Brain brain) {
         brain.AddReward(fallReward);
@@ -216,14 +223,10 @@ public class Arena : MonoBehaviour {
         if (state == ArenaState.Beginning) {
             state = ArenaState.Running;
         }
-        if (!interactables.Any(i => i.isCandy)) {
-            Clear();
-        }
-        if (!interactables.Any(i => i.isMatter)) {
-            Clear();
-        }
-        if (!interactables.Any(i => i.isAntimatter)) {
-            Clear();
+        if (isTraining) {
+            if (!hasCandies || !hasMatter || !hasAntimatter) {
+                Clear();
+            }
         }
     }
 
