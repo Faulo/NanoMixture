@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1678730654251269795}
-  - component: {fileID: 1678730654251269792}
+  - component: {fileID: 239732259739208233}
   m_Layer: 0
-  m_Name: DrugSpawner
+  m_Name: CandySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1678730654251269792
+--- !u!114 &239732259739208233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,5 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 785ee4289ae4c4998bdb67eda7768ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drugPrefab1: {fileID: 6131352448436476139, guid: 7e0afb4e4f5fd4c6893f3c9e57761b38,
+  drugPrefab: {fileID: 8161936908775517714, guid: a9693c0a3201aba4a91695b6504db3af,
     type: 3}
+  dropSounds:
+  - {fileID: 8300000, guid: addd0f3f925544caaaa3a169d2ed9b6e, type: 3}
+  - {fileID: 8300000, guid: ead5ff416b25140e8bc21d624ec19797, type: 3}
+  - {fileID: 8300000, guid: c03627d9c1bd54d12819522e69c539b8, type: 3}
+  - {fileID: 8300000, guid: fb5449e9d3b784656952bfe9cdf1910f, type: 3}

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PipetteCursor : MonoBehaviour
 {
-    [SerializeField] private GameObject cursorPrefab;
     private Vector3 mousePosition;
+    [SerializeField] float cursorPositionOffset = 1f;
 
     // Update is called once per frame
     void Update() {
@@ -22,6 +22,8 @@ public class PipetteCursor : MonoBehaviour
         if (hPlane.Raycast(ray, out distance)) {
             // get the hit point:
             mousePosition = ray.GetPoint(distance);
+            mousePosition.y = cursorPositionOffset;
+            ;
 
             gameObject.transform.position = mousePosition;
         }
