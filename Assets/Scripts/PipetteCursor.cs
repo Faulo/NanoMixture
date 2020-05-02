@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrugSpawner : MonoBehaviour
+public class PipetteCursor : MonoBehaviour
 {
-    [SerializeField] GameObject drugPrefab1;
-    private Vector3 clickPosition;
+    [SerializeField] private GameObject cursorPrefab;
+    private Vector3 mousePosition;
 
-    public void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            SpawnDrug();
-        }
+    // Update is called once per frame
+    void Update() {
+        MoveCursor();
     }
 
-    public void SpawnDrug() {
+    public void MoveCursor() {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         // create a plane at 0,0,0 whose normal points to +Y:
         Plane hPlane = new Plane(Vector3.up, Vector3.zero);
@@ -22,11 +21,9 @@ public class DrugSpawner : MonoBehaviour
         // if the ray hits the plane...
         if (hPlane.Raycast(ray, out distance)) {
             // get the hit point:
-            clickPosition = ray.GetPoint(distance);
-            clickPosition.y = 1;
+            mousePosition = ray.GetPoint(distance);
+
+            gameObject.transform.position = mousePosition;
         }
-
-        Instantiate(drugPrefab1, clickPosition, Quaternion.identity);
     }
-
 }
