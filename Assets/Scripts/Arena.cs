@@ -22,6 +22,8 @@ public class Arena : MonoBehaviour {
     float candyReward = 1;
     [SerializeField, Range(-1, 1)]
     float fallReward = -1;
+    [SerializeField, Range(0, 10000)]
+    int maxStepsUntilReset = 0;
 
 
     public IEnumerable<Interactable> interactables => m_interactables
@@ -60,6 +62,7 @@ public class Arena : MonoBehaviour {
         for (int i = 0; i < botCount; i++) {
             var bot = Instantiate(botPrefab, transform);
             var brain = bot.GetComponentInChildren<Brain>();
+            brain.MaxStep = maxStepsUntilReset;
             brain.onReset += BrainResetListener;
             brain.onFall += BrainFallListener;
             brain.onAction += BrainActionListener;

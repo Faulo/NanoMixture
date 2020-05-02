@@ -159,6 +159,7 @@ MonoBehaviour:
   perStepReward: -0.001
   candyReward: 1
   fallReward: -1
+  maxStepsUntilReset: 1000
   botPrefab: {fileID: 8319593203749018765, guid: 7a0ecbf2d053a6f4a8fdcfcdf695ad09,
     type: 3}
   botCount: 1

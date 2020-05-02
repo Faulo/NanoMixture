@@ -53,9 +53,6 @@ MonoBehaviour:
   MaxStep: 0
   movement: {fileID: 1656927184097964935}
   gatherer: {fileID: 4917342602359662915}
-  perStepReward: -0.001
-  candyReward: 0.1
-  fallReward: -1
   reset: 0
 --- !u!114 &52656825478494775
 MonoBehaviour:
@@ -75,7 +72,7 @@ MonoBehaviour:
     VectorActionSize: 0200000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 15a4ab4dc46157d408aadef860a78b47, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: fb9d2a71c2bde064db0447da0c63bb9e, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: NanoBot
