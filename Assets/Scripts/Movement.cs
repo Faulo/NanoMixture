@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour {
     public void Reset() {
         thrust = 0;
         torque = 0;
-        position = 10 * Random.insideUnitCircle;
+        transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         attachedRigidbody.velocity = Vector3.zero;
         attachedRigidbody.angularVelocity = Vector3.zero;
