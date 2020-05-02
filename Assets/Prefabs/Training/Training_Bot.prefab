@@ -7,16 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1922690562, guid: bf5ddd2a9b633074dafc061e720b7783, type: 3}
-      propertyPath: MaxStep
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 52656825478494775, guid: bf5ddd2a9b633074dafc061e720b7783,
-        type: 3}
-      propertyPath: m_Model
-      value: 
-      objectReference: {fileID: 5022602860645237092, guid: fb9d2a71c2bde064db0447da0c63bb9e,
-        type: 3}
     - target: {fileID: 2032566867259490674, guid: bf5ddd2a9b633074dafc061e720b7783,
         type: 3}
       propertyPath: m_Name
