@@ -19,7 +19,10 @@ public class Movement : MonoBehaviour {
         set => torqueCache = Mathf.Clamp(value, -1, 1);
     }
 
-    public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
+    public Vector2 position {
+        get => new Vector2(transform.localPosition.x, transform.localPosition.z);
+        set => transform.localPosition = new Vector3(value.x, transform.localPosition.y, value.y);
+    }
 
     public float velocity => attachedRigidbody.velocity.magnitude;
 
@@ -27,10 +30,14 @@ public class Movement : MonoBehaviour {
 
     public float angularVelocity => attachedRigidbody.angularVelocity.y;
 
+    void Awake() {
+        Reset();
+    }
+
     public void Reset() {
         thrust = 0;
         torque = 0;
-        transform.localPosition = Vector3.zero;
+        position = 10 * Random.insideUnitCircle;
         transform.rotation = Quaternion.identity;
         attachedRigidbody.velocity = Vector3.zero;
         attachedRigidbody.angularVelocity = Vector3.zero;

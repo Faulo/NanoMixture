@@ -34,9 +34,19 @@ public class Interactable : MonoBehaviour {
         }
     }
 
+    void Awake() {
+        Reset();
+    }
+
     void Update() {
         if (transform.position.y < -1) {
             gameObject.SetActive(false);
         }
+    }
+
+    public void Reset() {
+        var position = UnityEngine.Random.insideUnitCircle;
+        transform.localPosition = 10 * new Vector3(position.x, 0, position.y);
+        gameObject.SetActive(true);
     }
 }

@@ -31,6 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 829746085353892996}
+  - {fileID: 9072846968774764078}
   m_Father: {fileID: 3228077876656644058}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,10 +51,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  arena: {fileID: 0}
   movement: {fileID: 1656927184097964935}
   gatherer: {fileID: 4917342602359662915}
-  candyReward: 0.01
+  perStepReward: -0.001
+  candyReward: 0.1
   fallReward: -1
   reset: 0
 --- !u!114 &52656825478494775
@@ -74,7 +75,7 @@ MonoBehaviour:
     VectorActionSize: 0200000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 15a4ab4dc46157d408aadef860a78b47, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: NanoBot
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachedRigidbody: {fileID: 6264496069982718003}
   maxForwardSpeed: 10
-  maxTurnSpeed: 5
+  maxTurnSpeed: 10
 --- !u!114 &4917342602359662915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +268,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19459755c73f08a47b7378fc5e6d484f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4764668891309468116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9072846968774764078}
+  - component: {fileID: 4519706647318645062}
+  m_Layer: 0
+  m_Name: TextureSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &9072846968774764078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764668891309468116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1922690561}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4519706647318645062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4764668891309468116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132e1194facb64429b007ea1edf562d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderTexture: {fileID: 0}
+  m_SensorName: RenderTextureSensor
+  m_Grayscale: 0
+  m_Compression: 1
 --- !u!1 &5092221757109417684
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,8 +360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 2586001339807954194}
   m_SensorName: CameraSensor
-  m_Width: 84
-  m_Height: 64
+  m_Width: 44
+  m_Height: 44
   m_Grayscale: 0
   m_Compression: 1
 --- !u!1 &7618407151403757312
@@ -426,7 +474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8422121876911124185
 Transform:
   m_ObjectHideFlags: 0

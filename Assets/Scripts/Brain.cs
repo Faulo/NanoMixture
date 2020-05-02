@@ -4,17 +4,18 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 public class Brain : Agent {
-    [SerializeField]
-    Arena arena = default;
+    Arena arena;
     [SerializeField]
     Movement movement = default;
     [SerializeField]
     Gatherer gatherer = default;
 
     [Header("Rewards")]
-    [SerializeField, Range(-10, 10)]
+    [SerializeField, Range(-1, 1)]
+    float perStepReward = -0.001f;
+    [SerializeField, Range(-1, 1)]
     float candyReward = 1;
-    [SerializeField, Range(-10, 10)]
+    [SerializeField, Range(-1, 1)]
     float fallReward = -1;
 
     Interactable nearestCandy;
@@ -24,7 +25,7 @@ public class Brain : Agent {
     public bool reset = false;
 
     public override void Initialize() {
-        base.Initialize();
+        arena = GetComponentInParent<Arena>();
         gatherer.onCollect += CollectListener;
     }
     void CollectListener(Interactable interactable) {
@@ -52,6 +53,7 @@ public class Brain : Agent {
     float[] thrustValues = new float[] { 0, 1 };
     float[] torqueValues = new float[] { -1, 0, 1 };
     public override void OnActionReceived(float[] actions) {
+        AddReward(perStepReward);
         movement.thrust = thrustValues[Mathf.RoundToInt(actions[0])];
         movement.torque = torqueValues[Mathf.RoundToInt(actions[1])];
 
