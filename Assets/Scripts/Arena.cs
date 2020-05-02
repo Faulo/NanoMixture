@@ -5,11 +5,23 @@ using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 public class Arena : MonoBehaviour {
+    enum ArenaMode {
+        Playing,
+        Training,
+    }
     [Header("Arena")]
     [SerializeField, Range(0, 100)]
     int width = 10;
     [SerializeField, Range(0, 100)]
     int height = 10;
+    [SerializeField]
+    ArenaMode mode = default;
+
+    [Header("Geometry")]
+    [SerializeField]
+    Transform ground = default;
+    [SerializeField]
+    Transform[] walls = new Transform[4];
 
     [Header("Rewards")]
     [SerializeField, Range(-1, 1)]
@@ -33,6 +45,10 @@ public class Arena : MonoBehaviour {
 
     [Header("Prefabs")]
     [SerializeField]
+    Transform wallPrefab = default;
+    [SerializeField, Range(0, 10)]
+    int wallSize = 0;
+    [SerializeField]
     GameObject botPrefab = default;
     [SerializeField, Range(0, 100)]
     int botCount = 0;
@@ -52,42 +68,76 @@ public class Arena : MonoBehaviour {
     [SerializeField, Range(0, 100)]
     int blackCount = 0;
 
+
+    bool isPlaying => mode == ArenaMode.Playing;
+    bool isTraining => mode == ArenaMode.Training;
+
     Vector3 GetRandomPointInsideArena() {
         float x = UnityEngine.Random.Range(0, width) - width / 2;
         float y = UnityEngine.Random.Range(0, height) - height / 2;
         return new Vector3(x, 0, y);
     }
 
+    void OnValidate() {
+        var size = new Vector2Int(width + wallSize + wallSize, height + wallSize + wallSize);
+        SetGround(ground, size);
+        if (walls.Length != 4) {
+            Array.Resize(ref walls, 4);
+        }
+        SetWall(walls[0], new Rect((width + wallSize) / 2f, 0, wallSize, size.y));
+        SetWall(walls[1], new Rect((width + wallSize) / -2f, 0, wallSize, size.y));
+        SetWall(walls[2], new Rect(0, (height + wallSize) / 2f, size.x, wallSize));
+        SetWall(walls[3], new Rect(0, (height + wallSize) / -2f, size.x, wallSize));
+    }
+
     void Start() {
-        for (int i = 0; i < botCount; i++) {
-            var bot = Instantiate(botPrefab, transform);
-            var brain = bot.GetComponentInChildren<Brain>();
-            brain.MaxStep = maxStepsUntilReset;
-            brain.onReset += BrainResetListener;
-            brain.onFall += BrainFallListener;
-            brain.onAction += BrainActionListener;
-            brain.onCandy += BrainCandyListener;
-        }
-        for (int i = 0; i < candyCount; i++) {
-            Instantiate(candyPrefab, transform);
-        }
-        for (int i = 0; i < whiteCount; i++) {
-            Instantiate(whitePrefab, transform);
-        }
-        for (int i = 0; i < blackCount; i++) {
-            Instantiate(blackPrefab, transform);
-        }
 
-        m_interactables = new HashSet<Interactable>();
+        if (isTraining) {
+            for (int i = 0; i < botCount; i++) {
+                var bot = Instantiate(botPrefab, transform);
+                var brain = bot.GetComponentInChildren<Brain>();
+                brain.MaxStep = maxStepsUntilReset;
+                brain.onReset += BrainResetListener;
+                brain.onFall += BrainFallListener;
+                brain.onAction += BrainActionListener;
+                brain.onCandy += BrainCandyListener;
+            }
+            for (int i = 0; i < candyCount; i++) {
+                Instantiate(candyPrefab, transform);
+            }
+            for (int i = 0; i < whiteCount; i++) {
+                Instantiate(whitePrefab, transform);
+            }
+            for (int i = 0; i < blackCount; i++) {
+                Instantiate(blackPrefab, transform);
+            }
 
-        foreach (var interactable in GetComponentsInChildren<Interactable>()) {
-            interactable.onReset += InteractableResetListener;
-            interactable.onDisable += InteractableDisableListener;
-            interactable.onAnnihalate += InteractableAnnihilationListener;
-            m_interactables.Add(interactable);
+            m_interactables = new HashSet<Interactable>();
+
+            foreach (var interactable in GetComponentsInChildren<Interactable>()) {
+                interactable.onReset += InteractableResetListener;
+                interactable.onDisable += InteractableDisableListener;
+                interactable.onAnnihalate += InteractableAnnihilationListener;
+                m_interactables.Add(interactable);
+            }
+
+            bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
         }
+    }
 
-        bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
+    void SetGround(Transform ground, Vector2Int dimension) {
+        if (!ground) {
+            return;
+        }
+        ground.localScale = new Vector3(dimension.x, 1, dimension.y);
+    }
+
+    void SetWall(Transform wall, Rect rect) {
+        if (!wall) {
+            return;
+        }
+        wall.localPosition = new Vector3(rect.x, 0, rect.y);
+        wall.localScale = new Vector3(rect.width, 1, rect.height);
     }
 
     void BrainResetListener(Brain brain) {
@@ -118,10 +168,12 @@ public class Arena : MonoBehaviour {
     }
 
     void Update() {
-        if (!interactables.Any(i => i.isCandy)) {
-            bots.ForAll(bot => bot.AddReward(clearReward));
+        if (isTraining) {
+            if (!interactables.Any(i => i.isCandy)) {
+                bots.ForAll(bot => bot.AddReward(clearReward));
 
-            m_interactables.ForAll(i => i.Reset());
+                m_interactables.ForAll(i => i.Reset());
+            }
         }
     }
 }
