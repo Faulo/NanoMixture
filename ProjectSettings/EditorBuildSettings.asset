@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Training_1.unity
     guid: b2bff25f92c2b1145b1fdc5eaa8b3887
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Training_2.unity
     guid: ae1ddb1ef41b92e439309f40d93220ae
+  - enabled: 1
+    path: Assets/Scenes/Training_3.unity
+    guid: ffa10f31147c6704da66734d766ba538
   m_configObjects: {}

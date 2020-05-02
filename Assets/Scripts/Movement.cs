@@ -6,9 +6,10 @@ public class Movement : MonoBehaviour {
 
     [SerializeField, Range(0, 1000)]
     float maxForwardSpeed = 100;
+    [SerializeField, Range(0, 1)]
+    float forwardLerp = 1;
     [SerializeField, Range(0, 1000)]
     float maxTurnSpeed = 100;
-
     public float thrust {
         get => thrustCache;
         set => thrustCache = Mathf.Clamp(value, 0, 1);
@@ -46,7 +47,7 @@ public class Movement : MonoBehaviour {
     float torqueCache;
 
     void FixedUpdate() {
-        attachedRigidbody.velocity = transform.forward * thrust * maxForwardSpeed;
+        attachedRigidbody.velocity = Vector3.Lerp(attachedRigidbody.velocity, transform.forward * thrust * maxForwardSpeed, forwardLerp);
         transform.Rotate(transform.up * torque * maxTurnSpeed);
         //attachedRigidbody.AddForce(transform.forward * thrust * maxForwardSpeed * Time.deltaTime);
         //attachedRigidbody.AddTorque(transform.up * torque * maxTurnSpeed * Time.deltaTime);

@@ -9,6 +9,11 @@ public class Arena : MonoBehaviour {
         Playing,
         Training,
     }
+    enum ArenaState {
+        Cleared,
+        Beginning,
+        Running
+    }
     [Header("Arena")]
     [SerializeField, Range(0, 100)]
     int width = 10;
@@ -73,11 +78,23 @@ public class Arena : MonoBehaviour {
     [SerializeField, Range(0, 100)]
     int wallCount = 0;
 
+    [SerializeField]
+    Transform antimatterWallPrefab = default;
+    [SerializeField, Range(0, 100)]
+    int antimatterWallCount = 0;
+
+    [SerializeField]
+    Transform matterWallPrefab = default;
+    [SerializeField, Range(0, 100)]
+    int matterWallCount = 0;
+
 
     bool isPlaying => mode == ArenaMode.Playing;
     bool isTraining => mode == ArenaMode.Training;
 
-    bool isCleared;
+    [Header("Debug output")]
+    [SerializeField]
+    ArenaState state = ArenaState.Cleared;
 
     Vector3 GetRandomPointInsideArena() {
         float x = UnityEngine.Random.Range(0, width) - width / 2;
@@ -103,6 +120,14 @@ public class Arena : MonoBehaviour {
             obstacles = new HashSet<Transform>();
             for (int i = 0; i < wallCount; i++) {
                 var wall = Instantiate(wallPrefab, transform);
+                obstacles.Add(wall);
+            }
+            for (int i = 0; i < antimatterWallCount; i++) {
+                var wall = Instantiate(antimatterWallPrefab, transform);
+                obstacles.Add(wall);
+            }
+            for (int i = 0; i < matterWallCount; i++) {
+                var wall = Instantiate(matterWallPrefab, transform);
                 obstacles.Add(wall);
             }
             for (int i = 0; i < botCount; i++) {
@@ -150,7 +175,8 @@ public class Arena : MonoBehaviour {
         wall.localScale = new Vector3(rect.width, 1, rect.height);
     }
     void OnEpisodeBeginListener(Brain brain) {
-        isCleared = false;
+        state = ArenaState.Beginning;
+
         brain.Reset();
         brain.localPosition = GetRandomPointInsideArena();
 
@@ -175,16 +201,21 @@ public class Arena : MonoBehaviour {
         }
     }
     void InteractableAnnihilationListener(Interactable interactable) {
-        bots.ForAll(bot => bot.AddReward(annihilationReward));
+        if (state == ArenaState.Running) {
+            bots.ForAll(bot => bot.AddReward(annihilationReward));
+        }
     }
 
     void ResetObstacle(Transform obstacle) {
         obstacle.localPosition = GetRandomPointInsideArena();
-        obstacle.localScale = new Vector3(UnityEngine.Random.Range(1, (width + height) / 2), 1, 1);
+        obstacle.localScale = new Vector3(UnityEngine.Random.Range(1, (width + height) / 4), 1, 1);
         obstacle.localRotation = Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0, 360));
     }
 
     void Update() {
+        if (state == ArenaState.Beginning) {
+            state = ArenaState.Running;
+        }
         if (!interactables.Any(i => i.isCandy)) {
             Clear();
         }
@@ -197,8 +228,8 @@ public class Arena : MonoBehaviour {
     }
 
     void Clear() {
-        if (!isCleared) {
-            isCleared = true;
+        if (state == ArenaState.Running) {
+            state = ArenaState.Cleared;
             bots.ForAll(bot => bot.AddReward(clearReward));
             bots.ForAll(bot => bot.reset = true);
         }
