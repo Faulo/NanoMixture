@@ -13,22 +13,26 @@ public class Brain : Agent {
 
     [Header("Rewards")]
     [SerializeField, Range(-10, 10)]
-    float collectReward = 1;
+    float candyReward = 1;
     [SerializeField, Range(-10, 10)]
     float fallReward = -1;
 
-    Interactable nearestInteractable;
+    Interactable nearestCandy;
+    Interactable nearestWhite;
+    Interactable nearestBlack;
 
-    bool reset = false;
+    public bool reset = false;
 
     public override void Initialize() {
         base.Initialize();
         gatherer.onCollect += CollectListener;
     }
-    void CollectListener(GameObject obj) {
-        AddReward(collectReward);
-        Destroy(obj);
-        //reset = true;
+    void CollectListener(Interactable interactable) {
+        if (interactable.isCandy) {
+            AddReward(candyReward);
+            interactable.gameObject.SetActive(false);
+            reset = true;
+        }
     }
 
     public override void OnEpisodeBegin() {
@@ -36,14 +40,20 @@ public class Brain : Agent {
         movement.Reset();
     }
     public override void CollectObservations(VectorSensor sensor) {
-        sensor.AddObservation(movement.position);
+        //sensor.AddObservation(movement.position);
         sensor.AddObservation(movement.velocity);
-        sensor.AddObservation(movement.angularVelocity);
-        sensor.AddObservation(nearestInteractable ? nearestInteractable.position : Vector2.zero);
+        sensor.AddObservation(movement.rotation);
+        /*
+        sensor.AddObservation(nearestCandy ? nearestCandy.position : Vector2.zero);
+        sensor.AddObservation(nearestWhite ? nearestWhite.position : Vector2.zero);
+        sensor.AddObservation(nearestBlack ? nearestBlack.position : Vector2.zero);
+        //*/
     }
+    float[] thrustValues = new float[] { 0, 1 };
+    float[] torqueValues = new float[] { -1, 0, 1 };
     public override void OnActionReceived(float[] actions) {
-        movement.thrust = actions[0];
-        movement.torque = actions[1];
+        movement.thrust = thrustValues[Mathf.RoundToInt(actions[0])];
+        movement.torque = torqueValues[Mathf.RoundToInt(actions[1])];
 
         if (transform.position.y < -1) {
             AddReward(fallReward);
@@ -54,13 +64,15 @@ public class Brain : Agent {
         }
     }
     public override void Heuristic(float[] actions) {
-        actions[0] = Input.GetAxis("Vertical");
-        actions[1] = Input.GetAxis("Horizontal");
+        actions[0] = Input.GetAxisRaw("Vertical") > 0.5f ? 1 : 0;
+        actions[1] = Mathf.Round(Input.GetAxisRaw("Horizontal")) + 1;
     }
 
     void Update() {
-        nearestInteractable = arena.interactables
-            .OrderBy(interactable => Vector2.Distance(interactable.position, movement.position))
-            .FirstOrDefault();
+        var interactables = arena.interactables
+            .OrderBy(interactable => Vector2.Distance(interactable.position, movement.position));
+        nearestCandy = interactables.FirstOrDefault(i => i.isCandy);
+        nearestWhite = interactables.FirstOrDefault(i => i.isWhite);
+        nearestBlack = interactables.FirstOrDefault(i => i.isBlack);
     }
 }

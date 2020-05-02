@@ -3,15 +3,11 @@ using UnityEngine;
 
 public class Gatherer : MonoBehaviour {
 
-    public event Action<GameObject> onCollect;
-
-    [SerializeField]
-    string tagToCollect = "";
+    public event Action<Interactable> onCollect;
 
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag(tagToCollect)) {
-            onCollect?.Invoke(collision.gameObject);
-            //Destroy(collision.gameObject);
+        if (collision.gameObject.TryGetComponent<Interactable>(out var interactable)) {
+            onCollect?.Invoke(interactable);
         }
     }
 }
