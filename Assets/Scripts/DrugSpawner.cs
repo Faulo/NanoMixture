@@ -23,7 +23,7 @@ public class DrugSpawner : MonoBehaviour
         if (hPlane.Raycast(ray, out distance)) {
             // get the hit point:
             clickPosition = ray.GetPoint(distance);
-            clickPosition.y = 5;
+            clickPosition.y = 1;
         };
 
         Instantiate(drugPrefab1, clickPosition, Quaternion.identity);
