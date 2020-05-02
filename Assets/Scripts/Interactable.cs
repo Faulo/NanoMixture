@@ -9,9 +9,7 @@ public class Interactable : MonoBehaviour {
         Static,
     }
 
-    public event Action<Interactable> onDisable;
     public event Action<Interactable> onAnnihalate;
-    public event Action<Interactable> onReset;
     public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
 
     [SerializeField]
@@ -20,25 +18,18 @@ public class Interactable : MonoBehaviour {
     Rigidbody attachedRigidbody = default;
 
     public bool isCandy => type == InteractableType.Candy;
-    public bool isWhite => type == InteractableType.Antimatter;
-    public bool isBlack => type == InteractableType.Matter;
+    public bool isAntimatter => type == InteractableType.Antimatter;
+    public bool isMatter => type == InteractableType.Matter;
     public bool isStatic => type == InteractableType.Static;
-    void OnDisable() {
-        onDisable?.Invoke(this);
-    }
 
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.TryGetComponent<Interactable>(out var other)) {
-            if (isWhite && other.isBlack) {
-                onAnnihalate?.Invoke(this);
+            if (isAntimatter && other.isMatter) {
                 gameObject.SetActive(false);
                 other.gameObject.SetActive(false);
+                onAnnihalate?.Invoke(this);
             }
         }
-    }
-
-    void Start() {
-        Reset();
     }
 
     void Update() {
@@ -52,6 +43,5 @@ public class Interactable : MonoBehaviour {
             attachedRigidbody.velocity = Vector3.zero;
         }
         gameObject.SetActive(true);
-        onReset?.Invoke(this);
     }
 }

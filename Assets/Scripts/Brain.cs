@@ -4,7 +4,7 @@ using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 public class Brain : Agent {
-    public event Action<Brain> onReset;
+    public event Action<Brain> onEpisodeBegin;
     public event Action<Brain> onAction;
     public event Action<Brain> onFall;
     public event Action<Brain> onCandy;
@@ -26,13 +26,14 @@ public class Brain : Agent {
     }
     void CollectListener(Interactable interactable) {
         if (interactable.isCandy) {
-            onCandy?.Invoke(this);
             interactable.gameObject.SetActive(false);
+            onCandy?.Invoke(this);
         }
     }
 
     public override void OnEpisodeBegin() {
-        Reset();
+        reset = false;
+        onEpisodeBegin?.Invoke(this);
     }
     public override void CollectObservations(VectorSensor sensor) {
         //sensor.AddObservation(movement.position);
@@ -60,8 +61,6 @@ public class Brain : Agent {
     }
 
     public void Reset() {
-        reset = false;
         movement.Reset();
-        onReset?.Invoke(this);
     }
 }
