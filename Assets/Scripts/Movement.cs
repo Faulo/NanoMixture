@@ -20,12 +20,8 @@ public class Movement : MonoBehaviour {
     }
 
     public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
-    public Vector2 velocity {
-        get {
-            var localVelocity = transform.InverseTransformDirection(attachedRigidbody.velocity);
-            return new Vector2(localVelocity.x, localVelocity.z);
-        }
-    }
+
+    public float velocity => attachedRigidbody.velocity.magnitude;
 
     public float rotation => transform.rotation.eulerAngles.y / 360;
 
@@ -44,7 +40,7 @@ public class Movement : MonoBehaviour {
 
     void FixedUpdate() {
         attachedRigidbody.velocity = transform.forward * thrust * maxForwardSpeed;
-        attachedRigidbody.angularVelocity = transform.up * torque * maxTurnSpeed;
+        transform.Rotate(transform.up * torque * maxTurnSpeed);
         //attachedRigidbody.AddForce(transform.forward * thrust * maxForwardSpeed * Time.deltaTime);
         //attachedRigidbody.AddTorque(transform.up * torque * maxTurnSpeed * Time.deltaTime);
     }

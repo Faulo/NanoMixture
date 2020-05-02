@@ -42,7 +42,7 @@ public class Brain : Agent {
     public override void CollectObservations(VectorSensor sensor) {
         //sensor.AddObservation(movement.position);
         sensor.AddObservation(movement.velocity);
-        sensor.AddObservation(movement.rotation);
+        //sensor.AddObservation(movement.rotation);
         /*
         sensor.AddObservation(nearestCandy ? nearestCandy.position : Vector2.zero);
         sensor.AddObservation(nearestWhite ? nearestWhite.position : Vector2.zero);

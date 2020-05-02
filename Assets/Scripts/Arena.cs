@@ -28,7 +28,7 @@ public class Arena : MonoBehaviour {
     }
 
     void Update() {
-        if (!interactables.Any()) {
+        if (!interactables.Any(i => i.isCandy)) {
             bots.ForAll(bot => bot.AddReward(clearReward));
 
             m_interactables.ForAll(i => i.gameObject.SetActive(true));

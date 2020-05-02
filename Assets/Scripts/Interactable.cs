@@ -27,9 +27,16 @@ public class Interactable : MonoBehaviour {
                 return;
             }
             if (type != other.type) {
+                transform.position += UnityEngine.Random.onUnitSphere;
                 onAnnihalate?.Invoke(this);
                 gameObject.SetActive(false);
             }
+        }
+    }
+
+    void Update() {
+        if (transform.position.y < -1) {
+            gameObject.SetActive(false);
         }
     }
 }
