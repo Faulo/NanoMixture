@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 public class Brain : Agent {
-    Arena arena;
     [SerializeField]
     Movement movement = default;
     [SerializeField]
@@ -18,14 +16,9 @@ public class Brain : Agent {
     [SerializeField, Range(-1, 1)]
     float fallReward = -1;
 
-    Interactable nearestCandy;
-    Interactable nearestWhite;
-    Interactable nearestBlack;
-
     public bool reset = false;
 
     public override void Initialize() {
-        arena = GetComponentInParent<Arena>();
         gatherer.onCollect += CollectListener;
     }
     void CollectListener(Interactable interactable) {
@@ -44,11 +37,6 @@ public class Brain : Agent {
         //sensor.AddObservation(movement.position);
         sensor.AddObservation(movement.velocity);
         //sensor.AddObservation(movement.rotation);
-        /*
-        sensor.AddObservation(nearestCandy ? nearestCandy.position : Vector2.zero);
-        sensor.AddObservation(nearestWhite ? nearestWhite.position : Vector2.zero);
-        sensor.AddObservation(nearestBlack ? nearestBlack.position : Vector2.zero);
-        //*/
     }
     float[] thrustValues = new float[] { 0, 1 };
     float[] torqueValues = new float[] { -1, 0, 1 };
@@ -68,13 +56,5 @@ public class Brain : Agent {
     public override void Heuristic(float[] actions) {
         actions[0] = Input.GetAxisRaw("Vertical") > 0.5f ? 1 : 0;
         actions[1] = Mathf.Round(Input.GetAxisRaw("Horizontal")) + 1;
-    }
-
-    void Update() {
-        var interactables = arena.interactables
-            .OrderBy(interactable => Vector2.Distance(interactable.position, movement.position));
-        nearestCandy = interactables.FirstOrDefault(i => i.isCandy);
-        nearestWhite = interactables.FirstOrDefault(i => i.isWhite);
-        nearestBlack = interactables.FirstOrDefault(i => i.isBlack);
     }
 }

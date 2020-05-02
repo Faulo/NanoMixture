@@ -40,7 +40,7 @@ public class Interactable : MonoBehaviour {
 
     void Update() {
         if (transform.position.y < -1) {
-            gameObject.SetActive(false);
+            Reset();
         }
     }
 
