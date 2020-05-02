@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DrugSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject drugPrefab1;
+    [SerializeField] GameObject drugPrefab;
     private Vector3 clickPosition;
+    [SerializeField] AudioClip[] dropSounds;
+    [SerializeField] [Range(0, 1)] float soundVolume;
 
     public void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
@@ -26,7 +28,14 @@ public class DrugSpawner : MonoBehaviour
             clickPosition.y = 1;
         }
 
-        Instantiate(drugPrefab1, clickPosition, Quaternion.identity);
+        Instantiate(drugPrefab, clickPosition, Quaternion.identity);
+        PlayDropSound();
+        
+    }
+
+    public void PlayDropSound() {
+        AudioClip clip = dropSounds[UnityEngine.Random.Range(0, dropSounds.Length)];
+        AudioSource.PlayClipAtPoint(clip, gameObject.transform.position, soundVolume);
     }
 
 }
