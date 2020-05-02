@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2032566867259490674, guid: bf5ddd2a9b633074dafc061e720b7783,
         type: 3}
       propertyPath: m_Name
-      value: NanoBot
+      value: Training_Bot
       objectReference: {fileID: 0}
     - target: {fileID: 3228077876656644058, guid: bf5ddd2a9b633074dafc061e720b7783,
         type: 3}
@@ -65,6 +65,11 @@ PrefabInstance:
     - target: {fileID: 3228077876656644058, guid: bf5ddd2a9b633074dafc061e720b7783,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251303208261962221, guid: bf5ddd2a9b633074dafc061e720b7783,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

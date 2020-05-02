@@ -92,6 +92,21 @@ PrefabInstance:
       propertyPath: mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: candyCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: whiteCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: blackCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1319671461981286755, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -108,6 +123,11 @@ PrefabInstance:
       value: Training_Arena_2
       objectReference: {fileID: 0}
     - target: {fileID: 3774524877911332766, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4897839963409121876, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: m_IsActive
       value: 0

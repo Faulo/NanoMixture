@@ -7,7 +7,7 @@ public class Brain : Agent {
     public event Action<Brain> onEpisodeBegin;
     public event Action<Brain> onAction;
     public event Action<Brain> onFall;
-    public event Action<Brain> onCandy;
+    public event Action<Brain, Vector3> onCandy;
 
     [SerializeField]
     Movement movement = default;
@@ -24,10 +24,10 @@ public class Brain : Agent {
     public override void Initialize() {
         gatherer.onCollect += CollectListener;
     }
-    void CollectListener(Interactable interactable) {
+    void CollectListener(Interactable interactable, Vector3 position) {
         if (interactable.isCandy) {
             interactable.gameObject.SetActive(false);
-            onCandy?.Invoke(this);
+            onCandy?.Invoke(this, position);
         }
     }
 

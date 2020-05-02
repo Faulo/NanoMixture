@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5092085308468092102, guid: 9a81de482b7bcf04bad0a91b41fd2735,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8161936908775517714, guid: 9a81de482b7bcf04bad0a91b41fd2735,
         type: 3}
       propertyPath: m_Name
-      value: White
+      value: Training_Antimatter
       objectReference: {fileID: 0}
     - target: {fileID: 8161936908775517726, guid: 9a81de482b7bcf04bad0a91b41fd2735,
         type: 3}
