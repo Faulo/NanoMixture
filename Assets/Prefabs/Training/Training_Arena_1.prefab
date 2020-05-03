@@ -87,6 +87,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Training_Arena_1
       objectReference: {fileID: 0}
+    - target: {fileID: 4273299319743908608, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4897839963409121876, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: m_IsActive
