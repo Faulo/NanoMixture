@@ -49,7 +49,7 @@ MonoBehaviour:
   explosionUpwardsModifier: 0.1
   explosionsPerFrame: 100
   explosionPasses: 1
-  shakeIntensity: 10
+  shakeIntensity: 25
   shakeIntensityDecay: 0.9
   shakeFrequency: 0.5
   shakeDuration: 0.25
