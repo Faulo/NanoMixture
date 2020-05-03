@@ -14,13 +14,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Training_3.unity
     guid: ffa10f31147c6704da66734d766ba538
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Training_4.unity
     guid: a7aef7297612efc4dba66dce812ead79
-  - enabled: 0
+  - enabled: 1
+    path: Assets/Scenes/Start Scene.unity
+    guid: cb17bdcf0c063490084bb757e006a650
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 77cc157d1402a4cbd811b25337e1fadf
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Level 2.unity
     guid: 6c216f443d5df46cfa5b829f44910ecd
   m_configObjects: {}
