@@ -20,7 +20,7 @@ public class Interactable : MonoBehaviour {
     [SerializeField]
     InteractableType type = default;
     [SerializeField]
-    Rigidbody attachedRigidbody = default;
+    public Rigidbody attachedRigidbody = default;
 
     public bool isCandy => type == InteractableType.Candy;
     public bool isAntimatter => type == InteractableType.Antimatter;
