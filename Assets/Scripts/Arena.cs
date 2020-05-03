@@ -19,6 +19,8 @@ public class Arena : MonoBehaviour {
     public event Action<Vector3> onAnnihalateMatter;
     public event Action<Vector3> onCollectCandy;
     public event Action onWin;
+    public event Action onF1;
+    public event Action onF2;
     public event Action onTilt;
 
 
@@ -57,7 +59,9 @@ public class Arena : MonoBehaviour {
     [SerializeField]
     KeyCode reloadKey = KeyCode.Escape;
     [SerializeField]
-    KeyCode winKey = KeyCode.F1;
+    KeyCode f1Key = KeyCode.F1;
+    [SerializeField]
+    KeyCode f2Key = KeyCode.F2;
     [SerializeField]
     KeyCode tiltKey = KeyCode.Space;
 
@@ -294,8 +298,11 @@ public class Arena : MonoBehaviour {
             if (Input.GetKeyDown(reloadKey)) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
-            if (Input.GetKeyDown(winKey)) {
-                Win();
+            if (Input.GetKeyDown(f1Key)) {
+                onF1?.Invoke();
+            }
+            if (Input.GetKeyDown(f2Key)) {
+                onF2?.Invoke();
             }
             if (Input.GetKeyDown(tiltKey)) {
                 Tilt();
