@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: -1311037852710889124, guid: b499a7ddfdc754d4ca92bcf3554d2f6f,
         type: 3}
       propertyPath: m_Volume
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1311037852710889124, guid: b499a7ddfdc754d4ca92bcf3554d2f6f,
         type: 3}
@@ -86,6 +86,6 @@ PrefabInstance:
         type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 5f6206d27d1f8cf45b81d11f4543ee34, type: 3}
+      objectReference: {fileID: 8300000, guid: 436fcdc40cd3b4935a7803e95f0c0947, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b499a7ddfdc754d4ca92bcf3554d2f6f, type: 3}
