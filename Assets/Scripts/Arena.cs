@@ -240,8 +240,8 @@ public class Arena : MonoBehaviour {
 
     void ResetObstacle(Transform obstacle) {
         obstacle.localPosition = GetRandomPointInsideArena();
-        obstacle.localScale = new Vector3(UnityEngine.Random.Range(1, (width + height) / 4), 1, 1);
-        obstacle.localRotation = Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0, 360));
+        obstacle.localScale = new Vector3(UnityEngine.Random.Range(2, (width + height) / 4), 1, 1);
+        obstacle.localRotation = Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0, 4) * 90);
     }
 
     void Update() {
