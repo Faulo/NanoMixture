@@ -9,5 +9,5 @@ Spring Game Jam 2020
 
 ## Credits
 - Tristan Heck (art)
-- Jan Milosch (programming, sound design)
+- Jan Milosch (level design, ui design)
 - Daniel Schulz (programming)
