@@ -142,7 +142,7 @@ public class Arena : MonoBehaviour {
         Interactable.onInstantiate += InteractableInstantiateListener;
     }
     void OnDisable() {
-        Interactable.onInstantiate += InteractableInstantiateListener;
+        Interactable.onInstantiate -= InteractableInstantiateListener;
     }
 
     void Start() {
