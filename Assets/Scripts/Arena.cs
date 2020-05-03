@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Arena : MonoBehaviour {
     enum ArenaMode {
@@ -51,6 +52,9 @@ public class Arena : MonoBehaviour {
     int maxStepsUntilReset = 0;
 
     [Header("Key bindings")]
+    [SerializeField]
+    KeyCode reloadKey = KeyCode.Escape;
+    [SerializeField]
     KeyCode winKey = KeyCode.F1;
 
 
@@ -252,6 +256,9 @@ public class Arena : MonoBehaviour {
         if (isPlaying) {
             if (!hasMatter && !hasAntimatter) {
                 Win();
+            }
+            if (Input.GetKeyDown(reloadKey)) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
             if (Input.GetKeyDown(winKey)) {
                 Win();
