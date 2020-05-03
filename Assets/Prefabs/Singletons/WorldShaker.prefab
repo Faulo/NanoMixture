@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1678730654251269793
+--- !u!1 &6861142902822471324
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1678730654251269795}
-  - component: {fileID: 239732259739208233}
+  - component: {fileID: 5815984658932857032}
+  - component: {fileID: -462383342705570320}
   m_Layer: 0
-  m_Name: CandySpawner
+  m_Name: WorldShaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1678730654251269795
+--- !u!4 &5815984658932857032
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678730654251269793}
+  m_GameObject: {fileID: 6861142902822471324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,22 +31,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &239732259739208233
+--- !u!114 &-462383342705570320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678730654251269793}
+  m_GameObject: {fileID: 6861142902822471324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785ee4289ae4c4998bdb67eda7768ffe, type: 3}
+  m_Script: {fileID: 11500000, guid: 859707786537e2645a36bb7c408caf2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drugPrefab: {fileID: 8161936908775517714, guid: a9693c0a3201aba4a91695b6504db3af,
-    type: 3}
-  dropSounds:
-  - {fileID: 8300000, guid: addd0f3f925544caaaa3a169d2ed9b6e, type: 3}
-  - {fileID: 8300000, guid: ead5ff416b25140e8bc21d624ec19797, type: 3}
-  - {fileID: 8300000, guid: c03627d9c1bd54d12819522e69c539b8, type: 3}
-  - {fileID: 8300000, guid: fb5449e9d3b784656952bfe9cdf1910f, type: 3}
+  explosionMinForce: 10
+  explosionMaxForce: 30
+  explosionRadius: 10
+  explosionUpwardsModifier: 0.1
+  explosionsPerFrame: 100
+  explosionPasses: 1
+  shakeIntensity: 10
+  shakeIntensityDecay: 0.9
+  shakeFrequency: 0.5
+  shakeDuration: 0.25

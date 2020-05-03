@@ -62,10 +62,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1317739313999072443, guid: 981babe410144444b8d89bbe2a29fb9f,
+        type: 3}
+      propertyPath: tiltForce
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2657596192789905726, guid: 981babe410144444b8d89bbe2a29fb9f,
         type: 3}
       propertyPath: m_Name
-      value: Arena
+      value: Arena_Playing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 981babe410144444b8d89bbe2a29fb9f, type: 3}
