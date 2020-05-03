@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class Interactable : MonoBehaviour {
     enum InteractableType {
@@ -9,7 +10,11 @@ public class Interactable : MonoBehaviour {
         Static,
     }
 
+    public static event Action<Interactable> onInstantiate;
+
     public event Action<Vector3> onAnnihalate;
+    public event Action<Interactable> onDisable;
+    public event Action<Interactable> onDestroy;
     public Vector2 position => new Vector2(transform.localPosition.x, transform.localPosition.z);
 
     [SerializeField]
@@ -23,6 +28,9 @@ public class Interactable : MonoBehaviour {
     public bool isStatic => type == InteractableType.Static;
 
     void OnCollisionEnter(Collision collision) {
+        if (!isActive) {
+            return;
+        }
         if (collision.gameObject.TryGetComponent<Interactable>(out var other)) {
             if (isAntimatter && other.isMatter) {
                 gameObject.SetActive(false);
@@ -30,6 +38,12 @@ public class Interactable : MonoBehaviour {
                 onAnnihalate?.Invoke(collision.GetContact(0).point);
             }
         }
+    }
+
+    bool isActive = false;
+    void Start() {
+        isActive = true;
+        onInstantiate?.Invoke(this);
     }
 
     void Update() {
@@ -43,5 +57,12 @@ public class Interactable : MonoBehaviour {
             attachedRigidbody.velocity = Vector3.zero;
         }
         gameObject.SetActive(true);
+    }
+
+    void OnDisable() {
+        onDisable?.Invoke(this);
+    }
+    void OnDestroy() {
+        onDestroy?.Invoke(this);
     }
 }

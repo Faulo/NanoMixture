@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Slothsoft.UnityExtensions;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
 public class Arena : MonoBehaviour {
@@ -18,6 +19,7 @@ public class Arena : MonoBehaviour {
     public event Action<Vector3> onAnnihalateMatter;
     public event Action<Vector3> onCollectCandy;
     public event Action onWin;
+    public event Action onTilt;
 
 
     [Header("Arena")]
@@ -56,6 +58,8 @@ public class Arena : MonoBehaviour {
     KeyCode reloadKey = KeyCode.Escape;
     [SerializeField]
     KeyCode winKey = KeyCode.F1;
+    [SerializeField]
+    KeyCode tiltKey = KeyCode.Space;
 
 
     ISet<Transform> obstacles;
@@ -133,6 +137,14 @@ public class Arena : MonoBehaviour {
         SetWall(walls[3], new Rect(0, (height + wallSize) / -2f, size.x, wallSize));
     }
 
+    void OnEnable() {
+        interactables = new HashSet<Interactable>();
+        Interactable.onInstantiate += InteractableInstantiateListener;
+    }
+    void OnDisable() {
+        Interactable.onInstantiate += InteractableInstantiateListener;
+    }
+
     void Start() {
         if (isTraining) {
             obstacles = new HashSet<Transform>();
@@ -162,12 +174,6 @@ public class Arena : MonoBehaviour {
             for (int i = 0; i < blackCount; i++) {
                 Instantiate(blackPrefab, transform);
             }
-        }
-
-        interactables = new HashSet<Interactable>(GetComponentsInChildren<Interactable>());
-
-        foreach (var interactable in interactables) {
-            interactable.onAnnihalate += InteractableAnnihilationListener;
         }
 
         bots = new HashSet<Brain>(GetComponentsInChildren<Brain>());
@@ -223,10 +229,35 @@ public class Arena : MonoBehaviour {
         onCollectCandy?.Invoke(position);
     }
 
+
+    void InteractableInstantiateListener(Interactable interactable) {
+        if (interactable.transform.parent == null) {
+            interactable.transform.parent = transform;
+        }
+        if (interactable.GetComponentInParent<Arena>() == this) {
+            interactable.onAnnihalate += InteractableAnnihilationListener;
+            interactable.onDisable += InteractableDisableListener;
+            interactable.onDestroy += InteractableDestroyListener;
+            interactables.Add(interactable);
+            if (isTraining) {
+                ResetInteractable(interactable);
+            }
+        }
+    }
     void ResetInteractable(Interactable interactable) {
         interactable.Reset();
         if (!interactable.isStatic) {
             interactable.transform.localPosition = GetRandomPointInsideArena();
+        }
+    }
+    void InteractableDisableListener(Interactable interactable) {
+        if (isPlaying) {
+            Destroy(interactable.gameObject);
+        }
+    }
+    void InteractableDestroyListener(Interactable interactable) {
+        if (isPlaying) {
+            interactables.Remove(interactable);
         }
     }
     void InteractableAnnihilationListener(Vector3 position) {
@@ -247,6 +278,9 @@ public class Arena : MonoBehaviour {
     void Update() {
         if (isTraining) {
             if (state == ArenaState.Beginning) {
+                Assert.IsTrue(hasCandies);
+                Assert.IsTrue(hasMatter);
+                Assert.IsTrue(hasAntimatter);
                 state = ArenaState.Running;
             }
             if (!hasCandies || !hasMatter || !hasAntimatter) {
@@ -263,6 +297,9 @@ public class Arena : MonoBehaviour {
             if (Input.GetKeyDown(winKey)) {
                 Win();
             }
+            if (Input.GetKeyDown(tiltKey)) {
+                Tilt();
+            }
         }
     }
 
@@ -275,5 +312,8 @@ public class Arena : MonoBehaviour {
     }
     void Win() {
         onWin?.Invoke();
+    }
+    void Tilt() {
+        onTilt?.Invoke();
     }
 }
