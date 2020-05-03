@@ -171,7 +171,7 @@ MonoBehaviour:
   annihilationReward: 1
   clearReward: 0.5
   perStepReward: -0.001
-  candyReward: 0.1
+  candyReward: 0.25
   fallReward: -1
   maxStepsUntilReset: 10000
   reloadKey: 27

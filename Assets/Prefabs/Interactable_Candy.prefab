@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5297468073879958886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 8161936908775517726}
   m_RootOrder: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -8200949316374159681}
   m_Layer: 0
   m_Name: Interactable_Candy
-  m_TagString: Candy
+  m_TagString: Interactable_Candy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4,7 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Candy
+  - Wall
+  - Wall_Antimatter
+  - Wall_Matter
+  - Interactable_Candy
+  - Interactable_Matter
+  - Interactable_Antimatter
   layers:
   - Default
   - TransparentFX

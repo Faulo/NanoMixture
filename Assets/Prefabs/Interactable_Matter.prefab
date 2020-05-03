@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1811011216944150827}
   m_Layer: 0
   m_Name: Interactable_Matter
-  m_TagString: Candy
+  m_TagString: Interactable_Matter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

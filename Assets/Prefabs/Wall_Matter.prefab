@@ -22,6 +22,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Matter
       objectReference: {fileID: 0}
+    - target: {fileID: 2619649328800675613, guid: c48a34b93038a494bac94e5d49b9e5c8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall_Matter
+      objectReference: {fileID: 0}
     - target: {fileID: 5429601808505967089, guid: c48a34b93038a494bac94e5d49b9e5c8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
