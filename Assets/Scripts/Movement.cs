@@ -52,4 +52,10 @@ public class Movement : MonoBehaviour {
         //attachedRigidbody.AddForce(transform.forward * thrust * maxForwardSpeed * Time.deltaTime);
         //attachedRigidbody.AddTorque(transform.up * torque * maxTurnSpeed * Time.deltaTime);
     }
+
+    public void Stop() {
+        attachedRigidbody.velocity = Vector3.zero;
+        attachedRigidbody.angularVelocity = Vector3.zero;
+        enabled = false;
+    }
 }
