@@ -75,4 +75,8 @@ public class Brain : Agent {
     public void Reset() {
         movement.Reset();
     }
+    public void Stop() {
+        movement.Stop();
+        enabled = false;
+    }
 }

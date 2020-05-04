@@ -64,6 +64,10 @@ public class Arena : MonoBehaviour {
     KeyCode f2Key = KeyCode.F2;
     [SerializeField]
     KeyCode tiltKey = KeyCode.Space;
+    [SerializeField]
+    KeyCode winKey = KeyCode.F12;
+    [SerializeField, Range(0, 10)]
+    float winDelay = 1;
 
 
     ISet<Transform> obstacles;
@@ -279,6 +283,7 @@ public class Arena : MonoBehaviour {
         obstacle.localRotation = Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0, 4) * 90);
     }
 
+    bool hasWon = false;
     void Update() {
         if (isTraining) {
             if (state == ArenaState.Beginning) {
@@ -292,8 +297,12 @@ public class Arena : MonoBehaviour {
             }
         }
         if (isPlaying) {
-            if (!hasMatter && !hasAntimatter) {
-                Win();
+            if (!hasMatter || !hasAntimatter || Input.GetKeyDown(winKey)) {
+                if (!hasWon) {
+                    hasWon = true;
+                    bots.ForAll(bot => bot.Stop());
+                    Invoke("Win", winDelay);
+                }
             }
             if (Input.GetKeyDown(reloadKey)) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
