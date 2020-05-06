@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -252,12 +252,12 @@ PrefabInstance:
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaRows
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaColumns
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6374846466639512643, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
@@ -337,12 +337,12 @@ PrefabInstance:
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaRows
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaColumns
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6374846466639512643, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
@@ -422,12 +422,12 @@ PrefabInstance:
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaRows
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5932667324010291289, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
       propertyPath: arenaColumns
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6374846466639512643, guid: 9e3dc52e45bbef44f810a92a421ba1ca,
         type: 3}
