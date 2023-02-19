@@ -13,3 +13,5 @@
 !/Packages/
 
 /Assets/ML-Agents*
+
+!Jenkinsfile
