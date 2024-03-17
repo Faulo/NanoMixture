@@ -1,17 +1,56 @@
+# == Windows ==
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# == Use opt-in instead of opt-out for root folder ==
 /*
 /*/
 
+# == Git ==
 !.gitattributes
 !.gitignore
 !.gitmodules
 
-!.editorconfig
-!*.md
+# == GitHub ==
+!/.github
+!/*.md
 
+# == Jenkins ==
+!/Jenkinsfile*
+
+# == Visual Studio ==
+!.editorconfig
+
+# == Unity ==
 !/Assets/
 !/ProjectSettings/
 !/Packages/
+/Assets/InitTestScene*
 
-/Assets/ML-Agents*
+# == Blender ==
+*.blend1*
 
-!Jenkinsfile
+# == Cubase ==
+!/Cubase Project/
+
+# == FMOD ==
+# Never ignore DLLs in the FMOD subfolder.
+!/[Aa]ssets/Plugins/FMOD/**/lib/*
+.cache
+.unsaved
+.user
+fmod_editor.log
+
+# Don't ignore images and gizmos used by FMOD in the Unity Editor.
+!/[Aa]ssets/Gizmos/FMOD/*
+!/[Aa]ssets/Editor Default Resources/FMOD/*
+                    
+# Ignore the Cache folder since it is updated locally.
+/[Aa]ssets/Plugins/FMOD/Cache/*
+                    
+# Ignore bank files in the StreamingAssets folder.
+/[Aa]ssets/StreamingAssets/**/*.bank
+/[Aa]ssets/StreamingAssets/**/*.bank.meta
+                 
